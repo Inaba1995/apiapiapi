@@ -7,7 +7,7 @@ router = Router()
 
 main_menu = ReplyKeyboardMarkup(
     keyboard=[
-        [KeyboardButton(text="Погода 🌤️"), KeyboardButton(text="Курсы валют 💰")]
+        [KeyboardButton(text="Че в небе 🌤️"), KeyboardButton(text="Курсы бабла 💰")]
 
     ],
     resize_keyboard=True
@@ -16,17 +16,17 @@ main_menu = ReplyKeyboardMarkup(
 @router.message(CommandStart())
 async def start(message: Message):
     await message.answer(
-        f"Привет, {message.from_user.first_name}! Я Мульти помощник.\n"
+        f"Здарова, {message.from_user.first_name}! Я Мульти помощник.\n"
         "Выбери действие:",
         reply_markup=main_menu
     )
 
-@router.message(F.text == "Погода 🌤️")
+@router.message(F.text == "В небе у нас 🌤️")
 async def weather_handler(message: Message):
     weather = await get_weather()
     await message.answer(weather, reply_markup=main_menu)
 
-@router.message(F.text == "Курсы валют 💰")
+@router.message(F.text == "По баблу 💰")
 async def currency_handler(message: Message):
     currency = get_currency()
     await message.answer(currency, reply_markup=main_menu)
